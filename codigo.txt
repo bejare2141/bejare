@@ -1,0 +1,679 @@
+package paginas.pimspolicytool;
+
+import compartilhado.BaseDriver;
+import compartilhado.BaseUrl;
+import compartilhado.VerifTestes;
+import compartilhado.gerararquivo.ConexaoBanco;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import static java.lang.Thread.sleep;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
+/**
+ * Created by c73035 on 13/11/2018.
+ */
+public class PolicyToolsBuscaCerticadoPg<col> {
+    WebDriver driver;
+    BaseUrl baseUrl;
+    private final By ipolicyNumber = By.id("policyNumber");
+    private final By imainSearchButton = By.id("mainSearchButton");
+    private final By ipolicyProduct = By.id("policyProduct");
+    private final By icreateNewPolicy = By.id("createNewPolicy");
+    private final By iapplytablecolumnpolicynumber = By.xpath(".//*[@class='apply-table-column-policynumber']");
+    private final By istatusOkBtn = By.id("statusOkBtn");
+    private final By icheck0 = By.id("check0");
+    private final By ievent = By.id("event");
+    private final By ibtnSetEvent = By.id("btnSetEvent");
+    private final By itinybuttondocumentsblanksearchbluebuttonpolicymovements = By.xpath(".//*[@class='tiny-button documents-blank-search blue button-policy-movements']");
+    private final By itinybuttondocumentblankokbluebuttonaccountstatement = By.xpath(".//*[@class='tiny-button document-blank-ok blue button-account-statement']");
+    private final By iclose = By.xpath(".//*[@title='Close']");
+    private final By ipolicy = By.xpath(".//*[@class='policy']");
+    private final By ipolicyNumConsCertificado = By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Close'])[3]/following::strong[1]");
+    private final By cElement = By.xpath(".//*[contains(@class,'parent')]");
+    private final By iNumPolicyEnter = By.xpath("/html/body/div[4]/section/div[3]/div[2]/div/table/tbody/tr/td[1]/a");
+    private final By itinybuttonvisualizeblue = By.xpath(".//*[@class='tiny-button visualize blue']");
+    private final By itinybuttonmovimentoblue = By.xpath(".//*[@class='tiny-button movement blue']");
+    private final By ifecharHistEve = By.xpath(".//*[@class='ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close']");
+    private final By icifecharExtratoConta = By.xpath(".//*[@class='ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close']");
+    private final By iHistoricoEvento = By.xpath("/html/body/div[4]/section/div[3]/div[2]/div/table/tbody/tr/td[8]/div/div/div[1]/a");
+    private final By iNumeroCota = By.className("account-statement-quote-data");
+    //    private final By iObject = By.xpath(".//*[@class='insured-object']");
+    private final By iObject = By.id("insuranceObjects");
+    private final By iExtratoOk = By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Next'])[3]/following::input[1]");
+    private final By iNFatura = By.id("account-statement-table");
+    private final By iNPolicy = By.id("accountStatementPolicyNumber");
+    private final By iSubstatus = By.className("account-statement-sub-status-data");
+    private final By iPremiumBilled = By.xpath("/html/body/div[4]/section/div[22]/form/div[1]/fieldset[1]/div[3]/table/tbody/tr[1]/td[6]");
+    private final By iDiscount = By.xpath("");
+    private final By igroupPolicyName = By.id("groupPolicyName");
+    private final By ipolicyStatus = By.id("policyStatus");
+    private final By ipolicyInitialDateFrom = By.id("policyInitialDateFrom");
+    private final By ipolicyInitialDateUntil = By.id("policyInitialDateUntil");
+    private final By ipolicyEndDateFrom = By.id("policyEndDateFrom");
+    private final By ipolicyEndDateUntil = By.id("policyEndDateUntil");
+    private final By ipolicyPendingYes = By.id("policyPendingYes");
+    private final By ipartnerConsCertificado = By.className("user");
+    private final By iDetalheEvento = By.xpath(".//*[@class='tiny-button search blue']");
+    private final By ieventHistoryTable = By.id("eventHistoryTable");
+    private final By ibtnAdvancedSearchShow = By.id("btnAdvancedSearchShow");
+    private final By ipolicyInsuranceCompanyNumber = By.id("policyInsuranceCompanyNumber");
+    private final By itinybuttonvisualizeblueDetEvent = By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Indefinido'])[4]/following::a[1]");
+    private final By ibuttondetallenumerocertificado = By.xpath("/html/body/div[4]/section/div[14]/form/ol/li/a/strong");
+    private final By idetalleUnidadderiesgo = By.className("risk-unit");
+    private final By idetalleObjetoAsegurado = By.xpath("/html/body/div[4]/section/div[14]/form/ol/li/ol/li[1]/ol/li/a/strong");
+    private final By idetalleParticipacion = By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Death (In force)'])[1]/following::strong[1]");
+
+
+
+
+
+
+
+
+
+    public PolicyToolsBuscaCerticadoPg(WebDriver driver) {
+        this.driver = BaseDriver.getDriver();
+    }
+
+    public String vNumCertif() {
+        return driver.findElement(ipolicyNumber).getAttribute("value");
+    }
+
+    public PolicyToolsBuscaCerticadoPg cpolicyNumber(String arg) {
+        BaseDriver.itemAt(ipolicyNumber);
+        WebElement element = driver.findElement(ipolicyNumber);
+        element.clear();
+        element.sendKeys(arg);
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg cLinkCertificarCriarBusc(String arg) {
+        List<WebElement> element = driver.findElements(By.xpath(".//*[contains(@onclick,'document')]"));
+        Actions actions = new Actions(BaseDriver.getDriver());
+        for (int i = 0; i < element.size(); i++) {
+            if (element.get(i).getText().trim().contains(arg.trim())) {
+                actions.moveToElement(element.get(i)).click().perform();
+                break;
+            }
+        }
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+
+    public PolicyToolsBuscaCerticadoPg cmainSearchButton() {
+        BaseDriver.itemAt(imainSearchButton);
+        WebElement element = driver.findElement(imainSearchButton);
+        element.click();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg cpolicyProduct(String arg) {
+        boolean ver = false;
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        BaseDriver.itemAt(ipolicyProduct);
+        Actions actions = new Actions(BaseDriver.getDriver());
+        WebElement element = driver.findElement(ipolicyProduct);
+
+        actions.sendKeys(element, arg.trim()).perform();
+        By menuItem = By.xpath(".//*[@class='ui-menu-item']");
+        actions.moveToElement(element).click().perform();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        List<WebElement> vmenuItem = driver.findElements(menuItem);
+        for (int i = 0; i < vmenuItem.size(); i++) {
+            if (vmenuItem.get(i).getText().equals(arg.trim())) {
+                actions.click(vmenuItem.get(i)).perform();
+                break;
+            }
+        }
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        element.sendKeys(Keys.TAB);
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg ccreateNewPolicy() {
+        try {
+         Thread.sleep(8000);
+         WebElement element = driver.findElement(icreateNewPolicy);
+         Actions actions = new Actions(BaseDriver.getDriver());
+         actions.moveToElement(element).click().perform();
+         driver.manage().timeouts().implicitlyWait(90, TimeUnit.SECONDS);
+         driver.manage().timeouts().pageLoadTimeout(90, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg capplytablecolumnpolicynumber() {
+        BaseDriver.itemAt(iapplytablecolumnpolicynumber);
+        WebElement element = driver.findElement(iapplytablecolumnpolicynumber);
+        String vArg = element.getText();
+        BaseDriver.itemAt(iapplytablecolumnpolicynumber);
+        cstatusOkBtn();
+        BaseDriver.itemAt(iapplytablecolumnpolicynumber);
+        cpolicyNumber(vArg);
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg cstatusOkBtn() {
+        BaseDriver.itemAt(istatusOkBtn);
+        WebElement element = driver.findElement(istatusOkBtn);
+        element.click();
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg cHistoricoEvento() {
+        BaseDriver.itemAt(iHistoricoEvento);
+        WebElement element = driver.findElement(iHistoricoEvento);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        element.click();
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg cpolicyPendingYes() {
+        Actions actions = new Actions(BaseDriver.getDriver());
+        BaseDriver.itemAt(ipolicyPendingYes);
+        WebElement element = driver.findElement(ipolicyPendingYes);
+        actions.moveToElement(element).click().perform();
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+
+    public PolicyToolsBuscaCerticadoPg ccheck0() {
+        BaseDriver.itemAt(icheck0);
+        WebElement element = driver.findElement(icheck0);
+        element.click();
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+
+    public PolicyToolsBuscaCerticadoPg cevent(String arg) {
+        BaseDriver.itemAt(ievent);
+        WebElement element = driver.findElement(ievent);
+        org.openqa.selenium.support.ui.Select itemTes = new org.openqa.selenium.support.ui.Select(element);
+        itemTes.selectByVisibleText(arg.trim());
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg cbtnSetEvent() {
+        BaseDriver.itemAt(ibtnSetEvent);
+        WebElement element = driver.findElement(ibtnSetEvent);
+        element.click();
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg getNumCertificado() {
+        List<WebElement> element = driver.findElements(By.xpath(".//*[contains(@class,'apply-table-column-policynumber')]"));
+        String vNumCertificado = element.get(0).getText();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        driver.findElement(By.id("statusOkBtn")).click();
+        WebElement elementNumPolice = driver.findElement(By.id("policyNumber"));
+        elementNumPolice.clear();
+        elementNumPolice.sendKeys(vNumCertificado.trim());
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg cValidaCota(String numcota) {
+
+        BaseDriver.itemAt(iNumeroCota);
+        List<WebElement> element = driver.findElements(iNumeroCota);
+        int vIndex = element.size();
+
+        for (int i = 0; i <= vIndex; i++) {
+            if (i == 2) {
+                String numcotatela = element.get(i).getText();
+                assertEquals(numcotatela, numcota);
+            }
+        }
+
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+
+    public PolicyToolsBuscaCerticadoPg cValidaSubStatus(String substatus) {
+
+        BaseDriver.itemAt(iSubstatus);
+        List<WebElement> element = driver.findElements(iSubstatus);
+        int vIndex = element.size();
+
+        for (int i = 0; i <= vIndex; i++) {
+            if (i == 4) {
+
+
+                String substatustela = element.get(i).getText();
+                assertEquals(substatustela, substatus);
+            }
+        }
+
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+
+
+
+    public PolicyToolsBuscaCerticadoPg ctinybuttondocumentsblanksearchbluebuttonpolicymovements() {
+        BaseDriver.itemAt(itinybuttondocumentsblanksearchbluebuttonpolicymovements);
+        BaseDriver.itemLoadAt(itinybuttondocumentsblanksearchbluebuttonpolicymovements);
+        WebElement element = driver.findElement(itinybuttondocumentsblanksearchbluebuttonpolicymovements);
+        element.click();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg citinybuttondocumentblankokbluebuttonaccountstatement() {
+        BaseDriver.itemAt(itinybuttondocumentblankokbluebuttonaccountstatement);
+        WebElement element = driver.findElement(itinybuttondocumentblankokbluebuttonaccountstatement);
+        element.click();
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg ctinybuttonvisualizeblue() {
+        BaseDriver.itemAt(itinybuttonvisualizeblue);
+        List<WebElement> element = driver.findElements(itinybuttonvisualizeblue);
+        int vIndex = element.size();
+        vIndex = vIndex - 1;
+        element.get(vIndex).click();
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg ctinybuttonmovimentoblue() {
+        BaseDriver.itemAt(itinybuttonmovimentoblue);
+        List<WebElement> element = driver.findElements(itinybuttonmovimentoblue);
+        int vIndex = element.size();
+        vIndex = vIndex - 1;
+        element.get(vIndex).click();
+        By testea = By.id("");
+        BaseDriver.itemAt(testea);
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+
+    public PolicyToolsBuscaCerticadoPg ccomparepremiumbilleddiscount() {
+        BaseDriver.itemAt(iPremiumBilled);
+        BaseDriver.itemAt(iDiscount);
+        WebElement element1 = driver.findElement(iPremiumBilled);
+        element1.getText();
+        WebElement element2 = driver.findElement(iDiscount);
+        element2.getText();
+        assertEquals(element1, element2);
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg cGetLinkApoilceClick() {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Actions actions = new Actions(BaseDriver.getDriver());
+        WebElement element = driver.findElement(ipolicy);
+        if (element.getText().contains("QA_Aut")) {
+            element.click();
+//            actions.moveToElement(element).click().perform();
+        }
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg cPolicyClick() {
+        BaseDriver.itemAt(ipolicyNumConsCertificado);
+        WebElement element = driver.findElement(ipolicyNumConsCertificado);
+        element.click();
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg cPartnerClick() {
+        BaseDriver.itemAt(ipartnerConsCertificado);
+        WebElement element = driver.findElement(ipartnerConsCertificado);
+        element.click();
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+
+    public PolicyToolsBuscaCerticadoPg cGetLinkObjetoSeguradoClick() {
+        BaseDriver.itemAt(iObject);
+        WebElement element = driver.findElement(iObject);
+        element.click();
+        return new PolicyToolsBuscaCerticadoPg(driver);
+
+    }
+
+    public PolicyToolsBuscaCerticadoPg cClickNumPolicyEnter() {
+        BaseDriver.itemAt(iNumPolicyEnter);
+        WebElement element = driver.findElement(iNumPolicyEnter);
+        element.click();
+        return new PolicyToolsBuscaCerticadoPg(driver);
+
+    }
+
+
+    public PolicyToolsBuscaCerticadoPg cclose() {
+        BaseDriver.itemAt(iclose);
+        List<WebElement> element = driver.findElements(iclose);
+        for (int i = 0; i < element.size(); i++) {
+            if (element.get(i).isDisplayed()) {
+                element.get(i).click();
+                break;
+            }
+        }
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg cifecharExtConta() {
+        BaseDriver.itemAt(iExtratoOk);
+        WebElement element = driver.findElement(iExtratoOk);
+        element.click();
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+
+    public PolicyToolsBuscaCerticadoPg cifecharHistEve() {
+        BaseDriver.itemAt(ifecharHistEve);
+        List<WebElement> element = driver.findElements(ifecharHistEve);
+        for (int i = 0; i < element.size(); i++) {
+            if (element.get(i).isDisplayed()) {
+                element.get(i).click();
+                break;
+            }
+        }
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg linkResultBuscPT(String arg) {
+        WebElement element = driver.findElement(By.linkText(arg.trim()));
+        element.click();
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg cgroupPolicyName(String arg) {
+        WebElement element = driver.findElement(igroupPolicyName);
+        org.openqa.selenium.support.ui.Select itemTes = new org.openqa.selenium.support.ui.Select(element);
+        itemTes.selectByVisibleText(arg.trim());
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg cpolicyStatus(String arg) {
+        WebElement element = driver.findElement(ipolicyStatus);
+        org.openqa.selenium.support.ui.Select itemTes = new org.openqa.selenium.support.ui.Select(element);
+        itemTes.selectByVisibleText(arg.trim());
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg cpolicyInitialDateFrom(String arg) {
+        WebElement element = driver.findElement(ipolicyInitialDateFrom);
+        element.clear();
+        element.sendKeys(BaseUrl.getVarDateTeste(arg.trim()));
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg cpolicyInitialDateUntil(String arg) {
+        WebElement element = driver.findElement(ipolicyInitialDateUntil);
+        element.clear();
+        element.sendKeys(BaseUrl.getVarDateTeste(arg.trim()));
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg cpolicyEndDateFrom(String arg) {
+        WebElement element = driver.findElement(ipolicyEndDateFrom);
+        element.clear();
+        element.sendKeys(BaseUrl.getVarDateTeste(arg.trim()));
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg cpolicyEndDateUntil(String arg) {
+        WebElement element = driver.findElement(ipolicyEndDateUntil);
+        element.clear();
+        element.sendKeys(BaseUrl.getVarDateTeste(arg.trim()));
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg cifecharExtratoConta() {
+        BaseDriver.itemAt(icifecharExtratoConta);
+        List<WebElement> element = driver.findElements(icifecharExtratoConta);
+        for (int i = 0; i < element.size(); i++) {
+            if (element.get(i).isDisplayed()) {
+                element.get(i).click();
+                break;
+            }
+        }
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+
+    public PolicyToolsBuscaCerticadoPg ciNFatura(String arg) {
+        try {
+            sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        WebElement select = driver.findElement(iNFatura);
+        List<WebElement> options = select.findElements(By.tagName("td"));
+
+        for (int i = 0; i < options.size(); i++) {
+
+            if (i == 39) {
+                options.get(i).getText();
+                WebElement element = driver.findElement(iNPolicy);
+
+                ConexaoBanco.fatura = options.get(i).getText().trim();
+                ConexaoBanco.NApolice = element.getText();
+                ConexaoBanco.col3 = arg;
+                ConexaoBanco.conexaoBanco(ConexaoBanco.fatura, ConexaoBanco.NApolice, ConexaoBanco.col3);
+            }
+
+        }
+
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg cDetalheEvento() {
+        //  BaseDriver.itemAt(icheck0);
+        List<WebElement> element = driver.findElements(iDetalheEvento);
+        int i = element.size();
+        i = i - 1;
+        element.get(i).click();
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg cEventHistoryTableStatus(String arg) {
+        By testeVef = By.id("eventHistoryTable");
+        BaseDriver.itemLoadAt(testeVef);
+        By iOdd = By.xpath(".//*[@class='odd']");
+        By iEven = By.xpath(".//*[@class='even']");
+        List<WebElement> element0 = driver.findElements(iOdd);
+        List<WebElement> element1 = driver.findElements(iEven);
+        boolean statusArg = false;
+            for(int i = 0; i < element0.size();i++){
+                if(element0.get(i).getText().contains(arg.trim())){
+                    statusArg = true;
+                    break;
+                }
+            }
+            for(int j = 0; j < element1.size();j++){
+                if(element0.get(j).getText().contains(arg.trim())){
+                    statusArg = true;
+                    break;
+                }
+            }
+        assertEquals(true, statusArg);
+//        Se não sabe o que esta fazendo por favor, pede ajuda!
+        //        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        int l = 0;
+//
+//        WebElement select = driver.findElement(ieventHistoryTable);
+//
+//        List<WebElement> options = select.findElements(By.tagName("td"));
+//
+//        for (WebElement option : options) {
+//            int index = option.getText().length() + 2;
+//            if (option.getText().contains(arg.trim())) {
+//                List<WebElement> options2 = select.findElements(By.tagName("td"));
+//                options2.get(index).getText();
+//            }
+//            l = l + 1;
+//------------Para que serve isso?------>
+//            int inData = Integer.parseInt("0");
+//            GregorianCalendar c = new GregorianCalendar();
+//            c.add(Calendar.DAY_OF_MONTH, inData);
+//            SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+//            String dtArg = formatador.format(c.getTime());
+//------------<-------------------------<
+//        }
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg cipolicyInsuranceCompanyNumber(String arg) {
+        WebElement element = driver.findElement(ipolicyInsuranceCompanyNumber);
+        element.clear();
+        element.sendKeys(arg.trim());
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg cibtnAdvancedSearchShow() {
+        WebElement element = driver.findElement(ibtnAdvancedSearchShow);
+        element.click();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg ctinybuttonvisualizeblueDetEvent() {
+        WebElement element = driver.findElement(itinybuttonvisualizeblueDetEvent);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        element.click();
+        return new PolicyToolsBuscaCerticadoPg(driver);
+    }
+
+    public PolicyToolsBuscaCerticadoPg cbuttondetallenumerocertificado() {
+        WebElement element = driver.findElement(ibuttondetallenumerocertificado);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        element.click();
+        element.click();
+        return new PolicyToolsBuscaCerticadoPg(driver);
+
+
+    }
+
+    public PolicyToolsBuscaCerticadoPg cdetalleUnidadderiesgo() {
+        WebElement element = driver.findElement(idetalleUnidadderiesgo);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        element.click();
+        element.click();
+        return new PolicyToolsBuscaCerticadoPg(driver);
+
+
+    }
+
+
+
+    public PolicyToolsBuscaCerticadoPg cdetalleObjetoAsegurado() {
+        WebElement element = driver.findElement(idetalleObjetoAsegurado);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        element.click();
+        element.click();
+        return new PolicyToolsBuscaCerticadoPg(driver);
+
+
+    }
+
+    public PolicyToolsBuscaCerticadoPg cdetalleCobertura(String arg) {
+
+
+        try {
+            WebElement element = driver.findElement( By.xpath("//a[.='"+arg+"']"));
+            Thread.sleep(2000);
+            element.click();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return new PolicyToolsBuscaCerticadoPg(driver);
+
+
+    }
+
+
+    public PolicyToolsBuscaCerticadoPg cdetalleParticipacion (String arg,String arg2){
+        List<WebElement> options = driver.findElements(ipartnerConsCertificado);
+        System.out.println(options.size());
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        int index=Integer.parseInt(arg2);
+        options.get(index).click();
+
+        return new PolicyToolsBuscaCerticadoPg(driver);
+
+
+    }
+
+
+
+
+
+}

@@ -1,0 +1,309 @@
+package steps.policytool;
+
+import compartilhado.BaseDriver;
+import cucumber.api.java.es.*;
+import paginas.pimspolicytool.PolicyToolsBuscaCerticadoPg;
+
+/**
+ * Created by c73035 on 13/11/2018.
+ */
+public class PolicyToolBuscarCertificadoStep {
+    PolicyToolsBuscaCerticadoPg policyToolsBuscaCerticadoPg;
+
+    @Y("^ingresar en PIMS PolicyTool, Crear o buscar certificado en el ítem Número del certificado el valor (.*)$")
+    public void ingresarPIMSPolicyToolCriaroubuscarcertificadoitemNumerodocertificadoovalor(String arg) {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cpolicyNumber(arg);
+    }
+
+    @Y("^hacer clic en PIMS PolicyTool, Crear o buscar certificado en el ítem Búsqueda$")
+    public void hacerclickPIMSPolicyToolCriaroubuscarcertificadoitemBUSCAR() {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cmainSearchButton();
+    }
+
+    @Y("^hacer clic Pen PIMS PolicyTool, Crear o buscar certificado en el ítem link certificado(.*)$")
+    public void hacerclickPIMSPolicyToolCriaroubuscarcertificadoitemlinkcertificado(String arg) {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cLinkCertificarCriarBusc(arg.trim());
+    }
+
+    @Y("^ingresar en PIMS PolicyTool, Crear o buscar certificado en el ítem Producto el valor (.*)$")
+    public void ingresarPimsPolicyToolCriaoubuscacertificadoitemProdutoovalor(String arg) {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cpolicyProduct(arg.trim());
+    }
+
+    @Y("^hacer clic en PIMS PolicyTool, Crear o buscar certificado en el ítem Crear Nuevo Certificado$")
+    public void hacerclickPimsPolicyToolCriaoubuscacertificadoitemCRIARNOVOCERTIFICADO() {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.ccreateNewPolicy();
+    }
+
+    @Y("^hacer clic en PIMS PolicyTool, Crear o buscar certificado en el ítem Solo pendiente$")
+    public void hacerclickPimsPolicyToolCriaoubuscacertificadoitemApenaspendente() {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cpolicyPendingYes();
+    }
+
+
+    @Y("^tener en Pims PolicyTool, Creación o registro del certificado e incluir Pims PolicyTool, Búsqueda certificado en el ítem Número del certificado$")
+    public void obterPimsPolicyToolCriacaooregistrodocertificadoeincluirPimsPolicyToolBuscacertificadoitemNumerodocertificado() {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.getNumCertificado();
+    }
+
+    @Y("^hacer click en PIMS PolicyTool, Resultado de la búsqueda en el ítem ckeckbox del resultado$")
+    public void hacerclickPIMSPolicyToolResultadodabuscaoitemckeckboxdoresultado() {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.ccheck0();
+    }
+
+    @Y("^seleccionar en PIMS PolicyTool, Resultado de la búsqueda el ítem Evento para aplicar el valor (.*)$")
+    public void seleccionarPIMSPolicyToolResultadodabuscaoitemEventoparaaplicarovalor(String arg) {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cevent(arg);
+    }
+
+    @Y("^hacer clic en PIMS PolicyTool, Resultado de la búsqueda el ítem Aplicar Evento$")
+    public void hacerclickPIMSPolicyToolResultadodabuscaoitemAPLICAREVENTO() {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cbtnSetEvent();
+    }
+
+    @Y("^hacer clic en Pims PolicyTool, Aplicando en el ítem OK$")
+    public void hacerclickPimsPolicyToolAplicandoitemOK() {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cstatusOkBtn();
+    }
+
+    @Y("^hacer clic en PIMS PolicyTool, Resultado da busca el ítem Movimiento del certificado$")
+    public void hacerclickPIMSPolicyToolResultadodabuscaoitemMovimentodocertificado() {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.ctinybuttondocumentsblanksearchbluebuttonpolicymovements();
+    }
+
+    @Y("^hacer clic en PIMS PolicyTool, Resultado da busca el ítem Estado de la cuenta$")
+    public void hacerclickPIMSPolicyToolResultadodabuscaoitemExtratodaconta() {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.citinybuttondocumentblankokbluebuttonaccountstatement();
+    }
+
+    //    @Y ("^almacenar en PIMS PolicyTool, Resultado da busca el ítem número de la factura$")
+//    public void armazenarPIMSPolicyToolResultadodabuscaoitemnumerodafatura() {
+//        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+//      policyToolsBuscaCerticadoPg.ciNFatura();
+//    }
+    @Y("^hacer clic en Pims PolicyTool, Histórico de eventos, en la última línea en el ítem Consulta del certificado$")
+    public void hacerclickPimsPolicyToolHistoricodeeventosgradenaultimalinhaitemConsultadocertificado() {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cDetalheEvento();
+    }
+
+    @Y("^hacer clic en Pims PolicyTool, Histórico de eventos, en la última línea en el ítem Detalles del evento$")
+    public void hacerclickPimsPolicyToolHistoricodeeventosgradenaultimalinhaitemEventDetail() {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cDetalheEvento();
+    }
+
+    @Y("^hacer clic en PIMS PolicyTool, Resultado de la búsqueda el Número del certificado$")
+    public void hacerclickPimsPolicyToolResultadodabuscaClickApolice() {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cClickNumPolicyEnter();
+    }
+
+    @Y("^hacer clic en Pims PolicyTool, Consulta del certificado número Póliza$")
+    public void hacerclickPimsPolicyToolHistoricodeeventoConsultaCertificadoPolicyNumber() {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cPolicyClick();
+    }
+
+    @Y("^hacer clic en Pims PolicyTool, Consulta do certificado participante$")
+    public void hacerclickPimsPolicyToolHistoricodeeventoConsultaCertificadoParticipante() {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cPartnerClick();
+    }
+
+
+    @Y("^hacer clic en Pims PolicyTool, Histórico de eventos, en la última línea en el ítem Ver movimientos$")
+    public void hacerclickPimsPolicyToolHistoricodeeventosgradenaultimalinhaitemvermovimento() {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.ctinybuttonmovimentoblue();
+    }
+
+    @Y("^validar en Pims PolicyTool, Movimientos del Evento que el Premium billed sea igual al discount$")
+    public void hacerclickPimsPolicyToolMovimentosdoeventoPremiumBilledIgualDesconto() {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.ccomparepremiumbilleddiscount();
+    }
+
+
+    @Y("^hacer clic en Pims PolicyTool, Consulta del certificado en el link Póliza$")
+    public void hacerclickPimsPolicyToolConsultadocertificadolinkApolice() {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cGetLinkApoilceClick();
+    }
+
+    @Y("^hacer clic en Pims PolicyTool, Consulta del certificado en el link Objeto Asegurado$")
+    public void hacerclickPimsPolicyToolConsultadocertificadolinkObjetoSegurado() {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cGetLinkObjetoSeguradoClick();
+    }
+
+
+    @Y("^hacer clic en Pims PolicyTool, Consulta del certificado Cerrar$")
+    public void hacerclickPimsPolicyToolConsultadocertificadofechar() {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cclose();
+    }
+
+    @Y("^hacer clic en Pims PolicyTool, Histórico de eventos cerrar$")
+    public void hacerclickPimsPolicyToolHistoricodeeventosfechar() {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cifecharHistEve();
+    }
+
+
+    @Y("^hacer clic en Pims PolicyTool, Histórico de eventos$")
+    public void hacerclickPimsPolicyToolHistoricodeeventos() {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cHistoricoEvento();
+    }
+
+    @Y("^validar en PIMS PolicyTool, Estado de la cuenta en que fue generada la cuota (.*)$")
+    public void validarPimsPolicyToolExtratodeContaCota(String numcota) {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cValidaCota(numcota);
+    }
+
+    @Y("^validar en PIMS PolicyTool, Estado de la cuenta en que exista el Subastados(.*) en la quinta posición$")
+    public void validarPimsPolicyToolExtratodeContaSubstatus(String substatus) {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cValidaSubStatus(substatus);
+    }
+
+
+    @Y("^hacer clic en PIMS PolicyTool, Estado de la cuenta en el Ok$")
+    public void hacerclickPimsPolicyToolExtratodeContaFechar() {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cifecharExtConta();
+    }
+
+    @Y("^hacer clic en Pims en el (.*), cerrar$")
+    public void hacerclickPimsPolicyToolItensDiversosfechar(String arg) {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cclose();
+    }
+
+    @Y("^hacer clic en PIMS PolicyTool, Resultado en el ítem Estado de la cuenta cerrar$")
+    public void hacerclickPIMSPolicyToolResultadoitemExtratodacontafechar() {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cifecharHistEve();
+    }
+
+
+    @Y("^hacer clic en PIMS PolicyTool, Resultado de la búsqueda Número del certificado en el ítem link valor (.*)$")
+    public void hacerclickPIMSPolicyToolResultadodabuscaNumerodocertificadoitemlinkdocertificado(String arg) {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.linkResultBuscPT(arg.trim());
+    }
+
+    @Y("^hacer clic en PIMS PolicyTool, Crear o buscar certificado en el ítem Búsqueda avanzada$")
+    public void hacerclicenPIMSPolicyToolCrearobuscarcertificadoenelitemBusquedaavanzada() {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cibtnAdvancedSearchShow();
+    }
+
+    @Y("^seleccionar en Pims PolicyTool, Crear o buscar certificado en el ítem Póliza del grupo el valor (.*)$")
+    public void seleccionarPimsPolicyToolCriaoubuscacertificadoitemApolicegrupoovalor(String arg) {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cgroupPolicyName(arg.trim());
+    }
+
+    @Y("^seleccionar en Pims PolicyTool, Crear o buscar certificado en el ítem Estado del certificado (.*)$")
+    public void seleccionarPimsPolicyToolCriaoubuscacertificadoitemStatusdocertificado(String arg) {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cpolicyStatus(arg.trim());
+    }
+
+    @Y("^ingresar en Pims PolicyTool, Crear o buscar certificado en el ítem Fecha inicial de vigencia de D(.*)$")
+    public void ingresarPimsPolicyToolCriaoubuscacertificadoitemDatainicialdevigenciadeD(String arg) {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cpolicyInitialDateFrom(arg.trim());
+    }
+
+    @Y("^ingresar en Pims PolicyTool, Crear o buscar certificado en el ítem Fecha inicial de vigencia hasta D(.*)$")
+    public void ingresarPimsPolicyToolCriaoubuscacertificadoitemDatainicialdevigenciaateD(String arg) {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cpolicyInitialDateUntil(arg.trim());
+    }
+
+    @Y("^ingresar Pen Pims PolicyTool, Crear o buscar certificado en el ítem fecha final de vigencia de D(.*)$")
+    public void ingresarPimsPolicyToolCriaoubuscacertificadoitemDatafinaldevigenciadevigenciadeD(String arg) {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cpolicyEndDateFrom(arg.trim());
+    }
+
+    @Y("^ingresar en Pims PolicyTool, Crear o buscar certificado en el ítem Fecha final de vigencia hasta D(.*)$")
+    public void ingresarPimsPolicyToolCriaoubuscacertificadoitemDatafinaldevigenciadevigenciaateD(String arg) {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cpolicyEndDateUntil(arg.trim());
+    }
+
+    @Y("^ingresar en PIMS PolicyTool, Crear o buscar certificado en el ítem Número del certificado en la compañía aseguradora el valor (.*)$")
+    public void ingresarenPIMSPolicyToolCrearobuscarcertificadoeneliítemNumerodelcertificadoenlacompaniaaseguradoraelvalor(String arg) {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cipolicyInsuranceCompanyNumber(arg.trim());
+    }
+
+//    @Y ("^hacer clic en PIMS PolicyTool, Resultado da busca el ítem El historico de los movimientos$")
+//    public void hacerclicenPIMSPolicyToolResultadodabuscaelítemElhistoricodelosmovimientos(){
+//        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+//        policyToolsBuscaCerticadoPg.cDetalheEvento();
+//    }
+
+    @Entonces("^comprobar en PIMS PolicyTool, Resultado da busca el ítem El historico de los movimientos(.*)$")
+    public void comprobarenPIMSPolicyToolResultadodabuscaelítemElhistoricodelosmovimientos(String arg) {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cEventHistoryTableStatus(arg);
+    }
+
+    @Y("^hacer clic en Pims PolicyTool, Consulta de Póliza$")
+    public void hacerclicenPimsPolicyToolConsultadePóliza() {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.ctinybuttonvisualizeblueDetEvent();
+    }
+
+    @Y("^hacer clic en Pims PolicyTool, Consulta de Póliza en el ítem numero del certificado$")
+    public void hacerclicenPimsPolicyToolConsultadePólizaenelítemnumerodelcertificado() {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cbuttondetallenumerocertificado();
+
+    }
+
+    @Y("^hacer clic en Pims PolicyTool, Consulta de Póliza en el ítem Unidad de riesgo$")
+    public void hacerclicenPimsPolicyToolConsultadePólizaenelítemUnidadderiesgo() {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cdetalleUnidadderiesgo();
+
+    }
+
+    @Y("^hacer clic en Pims PolicyTool, Consulta de Póliza en el ítem Objeto asegurado$")
+    public void hacerclicenPimsPolicyToolConsultadePólizaenelítemObjetoasegurado() {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cdetalleObjetoAsegurado();
+    }
+
+    @Y("^hacer clic en Pims PolicyTool, Consulta de Póliza en el ítem Cobertura(.*)$")
+    public void hacerclicenPimsPolicyToolConsultadePólizaenelítemCobertura(String arg) {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cdetalleCobertura(arg.trim());
+    }
+
+    @Y("^hacer clic en Pims PolicyTool, Consulta de Póliza en el ítem Participacion(.*),(.*)$")
+    public void hacerclicenPimsPolicyToolConsultadePólizaenelítemParticipacion(String arg,String arg2)  {
+        policyToolsBuscaCerticadoPg = new PolicyToolsBuscaCerticadoPg(BaseDriver.getDriver());
+        policyToolsBuscaCerticadoPg.cdetalleParticipacion(arg.trim(),arg2.trim());
+
+    }
+}
